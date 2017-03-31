@@ -80,7 +80,7 @@ lazy val docSettings = Seq(
 )
 
 lazy val iteratee = project.in(file("."))
-  .enablePlugins(CrossPerProjectPlugin, GhpagesPlugin, ScalaUnidocPlugin)
+  .enablePlugins(GhpagesPlugin, ScalaUnidocPlugin)
   .settings(allSettings)
   .settings(docSettings)
   .settings(noPublishSettings)
@@ -88,7 +88,6 @@ lazy val iteratee = project.in(file("."))
   .dependsOn(core, scalaz)
 
 lazy val coreBase = crossProject.crossType(CrossType.Pure).in(file("core"))
-  .enablePlugins(CrossPerProjectPlugin)
   .settings(
     moduleName := "iteratee-core",
     name := "core",
@@ -109,7 +108,6 @@ lazy val core = coreBase.jvm
 lazy val coreJS = coreBase.js
 
 lazy val testsBase = crossProject.in(file("tests"))
-  .enablePlugins(CrossPerProjectPlugin)
   .configs(IntegrationTest)
   .settings(
     moduleName := "iteratee-tests",
@@ -153,7 +151,6 @@ lazy val tests = testsBase.jvm
 lazy val testsJS = testsBase.js
 
 lazy val files = project
-  .enablePlugins(CrossPerProjectPlugin)
   .settings(
     moduleName := "iteratee-files",
     crossScalaVersions := scalaVersions,
@@ -163,7 +160,6 @@ lazy val files = project
   .dependsOn(core)
 
 lazy val twitter = project
-  .enablePlugins(CrossPerProjectPlugin)
   .configs(IntegrationTest)
   .settings(
     crossScalaVersions := scalaVersions.tail,
@@ -176,7 +172,6 @@ lazy val twitter = project
   ).dependsOn(core, files, tests % "test,it")
 
 lazy val scalaz = project
-  .enablePlugins(CrossPerProjectPlugin)
   .configs(IntegrationTest)
   .settings(
     moduleName := "iteratee-scalaz",
@@ -189,7 +184,6 @@ lazy val scalaz = project
   ).dependsOn(core, files, tests % "test,it")
 
 lazy val monixBase = crossProject.in(file("monix"))
-  .enablePlugins(CrossPerProjectPlugin)
   .configs(IntegrationTest)
   .settings(
     moduleName := "iteratee-monix",
@@ -212,7 +206,6 @@ lazy val monix = monixBase.jvm
 lazy val monixJS = monixBase.js
 
 lazy val fs2Base = crossProject.in(file("fs2"))
-  .enablePlugins(CrossPerProjectPlugin)
   .configs(IntegrationTest)
   .settings(
     crossScalaVersions := scalaVersions.tail,
@@ -235,7 +228,6 @@ lazy val fs2 = fs2Base.jvm
 lazy val fs2JS = fs2Base.js
 
 lazy val benchmark = project
-  .enablePlugins(CrossPerProjectPlugin)
   .configs(IntegrationTest)
   .settings(
     crossScalaVersions := scalaVersions.tail,
